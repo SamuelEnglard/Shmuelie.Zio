@@ -8,11 +8,14 @@
     <RepositoryType>git</RepositoryType>
     <Description>Adds support for using Microsoft.Extensions.FileSystemGlobbing with Zio's File Systems.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="3.1.2" />
     <PackageReference Include="Zio" Version="0.7.6" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
 </Project>

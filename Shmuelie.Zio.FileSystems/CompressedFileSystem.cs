@@ -1,18 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO.Compression;
-using Zio;
-using Zio.FileSystems;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using Zio;
 
 namespace Shmuelie.Zio.FileSystems
 {
+    /// <summary>
+    ///     Access a <see cref="ZipArchive"/> as a file system.
+    /// </summary>
+    /// <seealso cref="FlatFileSystem" />
     public class CompressedFileSystem : FlatFileSystem
     {
+        /// <summary>
+        ///     The archive to access.
+        /// </summary>
         private readonly ZipArchive archive;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="CompressedFileSystem"/> class.
+        /// </summary>
+        /// <param name="archive">The archive to access.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="archive"/> is <see langword="null"/>.</exception>
+        public CompressedFileSystem(ZipArchive archive)
+        {
+            if (archive is null)
+            {
+                throw new ArgumentNullException(nameof(archive));
+            }
+
+            this.archive = archive;
+        }
 
         /// <inheritdoc />
         protected override void CreateDirectoryImpl(UPath path)
@@ -23,6 +42,7 @@ namespace Shmuelie.Zio.FileSystems
         /// <inheritdoc />
         protected override void DeleteFileImpl(UPath path) => IfFileExists(path, entry => entry.Delete());
 
+        /// <inheritdoc />
         protected override void DeleteDirectoryImpl(UPath path, bool isRecursive)
         {
             foreach (UPath filePath in this.EnumerateFiles(path, "*", isRecursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly))
@@ -126,6 +146,61 @@ namespace Shmuelie.Zio.FileSystems
 
         private ZipArchiveEntry GetEntry(UPath path) => archive.GetEntry(path.ToRelative().FullName);
 
+        /// <inheritdoc />
+        protected override FileAttributes GetAttributesImpl(UPath path)
+        {
+            if (FileExists(path))
+            {
+                return FileAttributes.Compressed;
+            }
+            if (DirectoryExists(path))
+            {
+                return FileAttributes.Compressed | FileAttributes.Directory;
+            }
+            throw FileSystemExceptionHelper.NewDirectoryNotFoundException(path);
+        }
+
+        /// <inheritdoc />
+        protected override void SetAttributesImpl(UPath path, FileAttributes attributes)
+        {
+            if (!FileExists(path))
+            {
+                throw FileSystemExceptionHelper.NewFileNotFoundException(path);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void SetCreationTimeImpl(UPath path, DateTime time)
+        {
+            if (!FileExists(path))
+            {
+                throw FileSystemExceptionHelper.NewFileNotFoundException(path);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void SetLastAccessTimeImpl(UPath path, DateTime time)
+        {
+            if (!FileExists(path))
+            {
+                throw FileSystemExceptionHelper.NewFileNotFoundException(path);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void SetLastWriteTimeImpl(UPath path, DateTime time) => IfFileExists(path, entry => entry.LastWriteTime = new DateTimeOffset(time));
+
+        /// <inheritdoc />
+        protected override bool CanWatchImpl(UPath path) => false;
+
+        /// <inheritdoc />
+        protected override UPath ConvertPathFromInternalImpl(string innerPath) => innerPath;
+
+        /// <inheritdoc />
+        protected override string ConvertPathToInternalImpl(UPath path) => path.FullName;
+
+        /// <inheritdoc />
+        protected override IFileSystemWatcher WatchImpl(UPath path) => null;
 
         private void IfFileExists(UPath path, Action<ZipArchiveEntry> func)
         {

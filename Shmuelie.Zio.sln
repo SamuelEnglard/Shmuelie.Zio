@@ -10,9 +10,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{4A76344D-9898-48C7-A63B-4B43274DC425}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Directory.Build.PackageReferences.props = Directory.Build.PackageReferences.props
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Build.Tests.props = Directory.Build.Tests.props
+		Directory.Build.Tests.targets = Directory.Build.Tests.targets
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shmuelie.Zio.FileSystems", "Shmuelie.Zio.FileSystems\Shmuelie.Zio.FileSystems.csproj", "{D25CEBD0-9592-4F12-AE0D-C252195D4BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +35,10 @@ Global
 		{BA79434E-84A9-46A0-8179-04676CD9C94B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA79434E-84A9-46A0-8179-04676CD9C94B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA79434E-84A9-46A0-8179-04676CD9C94B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D25CEBD0-9592-4F12-AE0D-C252195D4BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D25CEBD0-9592-4F12-AE0D-C252195D4BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D25CEBD0-9592-4F12-AE0D-C252195D4BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D25CEBD0-9592-4F12-AE0D-C252195D4BAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

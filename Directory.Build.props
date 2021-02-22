@@ -1,0 +1,15 @@
+<Project Condition="'$(MSBuildThisFileDirectory)$(ProjectName)' == '$(MSBuildProjectDirectory)'">
+  <PropertyGroup>
+    <Authors>Shmueli Englard</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/SamuelEnglard/Shmuelie.Zio</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>Adds support for using Microsoft.Extensions.FileSystemGlobbing with Zio's File Systems.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Copyright>Copyright © Shmueli Englard $([System.DateTime]::UtcNow.Year)</Copyright>
+    <Company>$(Authors)</Company>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.*.props"/>
+</Project>

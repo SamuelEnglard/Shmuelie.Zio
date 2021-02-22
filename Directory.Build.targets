@@ -1,0 +1,8 @@
+<Project Condition="'$(MSBuildThisFileDirectory)$(ProjectName)' == '$(MSBuildProjectDirectory)'">
+  <PropertyGroup Condition="!$(ProjectName.EndsWith('.Documentation')) AND !$(ProjectName.EndsWith('.Tests'))">
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Shmuelie.Zio.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>$(ProjectDir)$(OutputPath)$(ProjectName).xml</DocumentationFile>
+    <DefineConstants Condition="'$(Configuration)'=='Debug'">DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.*.targets"/>
+</Project>

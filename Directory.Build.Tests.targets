@@ -1,0 +1,18 @@
+<Project Condition="'$(MSBuildThisFileDirectory)$(ProjectName)' == '$(MSBuildProjectDirectory)'">
+  <PropertyGroup>
+    <TestingAssemblyAttributesOuputDirectory>$(IntermediateOutputPath)</TestingAssemblyAttributesOuputDirectory>
+    <TestingAssemblyAttributesOuputDirectory Condition="'$([System.IO.Path]::GetPathRoot($(TestingAssemblyAttributesOuputDirectory))' == ''">$(MSBuildThisFileDirectory)$(ProjectName)/$(IntermediateOutputPath)</TestingAssemblyAttributesOuputDirectory>
+  </PropertyGroup>
+  <Target Name="ExposeToTests" Condition="Exists('$(MSBuildThisFileDirectory)$(ProjectName).Tests/')" BeforeTargets="BeforeBuild;BuiltProjectOutputGroup;CompileDesignTime" Outputs="$(TestingAssemblyAttributesOuputDirectory)/TestingAssemblyAttributes.cs">
+    <ItemGroup>
+      <TestingAssemblyAttributes Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+        <_Parameter1>$(ProjectName).Tests</_Parameter1>
+      </TestingAssemblyAttributes>
+    </ItemGroup>
+    <MakeDir Directories="$(TestingAssemblyAttributesOuputDirectory)" />
+    <WriteCodeFragment AssemblyAttributes="@(TestingAssemblyAttributes)" Language="C#" OutputDirectory="$(TestingAssemblyAttributesOuputDirectory)" OutputFile="TestingAssemblyAttributes.cs">
+      <Output TaskParameter="OutputFile" ItemName="Compile" />
+      <Output TaskParameter="OutputFile" ItemName="FileWrites" />
+    </WriteCodeFragment>
+  </Target>
+</Project>

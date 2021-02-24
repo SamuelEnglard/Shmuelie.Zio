@@ -41,44 +41,19 @@ namespace Shmuelie.Zio.FileSystems.Tests
             protected override IFileSystemWatcher WatchImpl(UPath path) => throw new NotImplementedException();
         }
 
-        [TestCaseSource(typeof(FlatFileSystemTests), nameof(DirectoryExistsTestData))]
+        [TestCaseSource(typeof(TestData), nameof(TestData.DirectoryExistsTestData))]
         public bool DirectoryExistsTest(UPath testPath) => new TestFlatFS(paths).DirectoryExists(testPath);
-
-        public static IEnumerable<TestCaseData> DirectoryExistsTestData()
-        {
-            yield return new TestCaseData(new UPath("/a")).Returns(true);
-            yield return new TestCaseData(new UPath("/b")).Returns(false);
-            yield return new TestCaseData(new UPath("/a/b")).Returns(false);
-            yield return new TestCaseData(new UPath("/a/b.txt")).Returns(false);
-            yield return new TestCaseData(UPath.Root).Returns(true);
-            yield return new TestCaseData(new UPath(null)).Returns(false);
-        }
 
         [Test]
         public void DirectoryExistsTest() => Assert.That(() => new TestFlatFS(paths).DirectoryExists(UPath.Empty), Throws.ArgumentException);
 
-        [TestCaseSource(typeof(FlatFileSystemTests), nameof(FileExistsTestData))]
+        [TestCaseSource(typeof(TestData), nameof(TestData.FileExistsTestData))]
         public bool FileExistsTest(UPath testPath) => new TestFlatFS(paths).FileExists(testPath);
-
-        public static IEnumerable<TestCaseData> FileExistsTestData()
-        {
-            yield return new TestCaseData(new UPath("/a")).Returns(false);
-            yield return new TestCaseData(new UPath("/b")).Returns(false);
-            yield return new TestCaseData(new UPath("/a/c.text")).Returns(true);
-            yield return new TestCaseData(new UPath("/a/b.txt")).Returns(true);
-            yield return new TestCaseData(new UPath(null)).Returns(false);
-        }
 
         [Test]
         public void FileExistsTest() => Assert.That(() => new TestFlatFS(paths).FileExists(UPath.Empty), Throws.ArgumentException);
 
-        [TestCaseSource(typeof(FlatFileSystemTests), nameof(EnumeratePathsData))]
+        [TestCaseSource(typeof(TestData), nameof(TestData.EnumeratePathsData))]
         public int EnumeratePaths(UPath testPath, string searchPattern, SearchOption searchOption, SearchTarget searchTarget) => new TestFlatFS(paths).EnumeratePaths(testPath, searchPattern, searchOption, searchTarget).Count();
-
-        public static IEnumerable<TestCaseData> EnumeratePathsData()
-        {
-            yield return new TestCaseData(UPath.Root, "*.txt", SearchOption.AllDirectories, SearchTarget.File).Returns(2);
-            yield return new TestCaseData(UPath.Root, "*.txt", SearchOption.TopDirectoryOnly, SearchTarget.File).Returns(1);
-        }
     }
 }

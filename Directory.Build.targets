@@ -3,6 +3,14 @@
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Shmuelie.Zio.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>$(ProjectDir)$(OutputPath)$(ProjectName).xml</DocumentationFile>
     <DefineConstants Condition="'$(Configuration)'=='Debug'">DEBUG;TRACE</DefineConstants>
+    <ApplicationIcon>$(MSBuildProjectDirectory)/$(ProjectName).ico</ApplicationIcon>
+    <PackageIcon>$(ProjectName)-256.png</PackageIcon>
   </PropertyGroup>
+  <ItemGroup Condition="!$(ProjectName.EndsWith('Documentation')) AND !$(ProjectName.EndsWith('.Tests'))">
+    <None Update="$(MSBuildProjectDirectory)/$(ProjectName)-256.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)Directory.Build.*.targets"/>
 </Project>

@@ -1,5 +1,5 @@
 <Project Condition="'$(MSBuildThisFileDirectory)$(ProjectName)' == '$(MSBuildProjectDirectory)'">
-  <PropertyGroup>
+  <PropertyGroup Condition="!$(ProjectName.EndsWith('Documentation')) AND !$(ProjectName.EndsWith('.Tests'))">
     <Authors>Shmueli Englard</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/SamuelEnglard/Shmuelie.Zio</RepositoryUrl>

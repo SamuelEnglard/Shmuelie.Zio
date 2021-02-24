@@ -1,17 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ApplicationIcon>Shmuelie.Zio.FileSystems.ico</ApplicationIcon>
-    <PackageIcon>Shmuelie.Zio.FileSystems-256.png</PackageIcon>
     <Description>Additional implementations of IFileSystem for Zio.</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="Shmuelie.Zio.FileSystems-256.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
 </Project>

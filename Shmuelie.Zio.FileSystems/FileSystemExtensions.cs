@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -127,7 +128,7 @@ namespace Shmuelie.Zio.FileSystems
 
         private static async Task LoadImpl(IFileSystem @this, ZipArchive zipArchive, bool overwrite, CancellationToken cancellationToken)
         {
-            foreach(ZipArchiveEntry archiveEntry in zipArchive.Entries)
+            foreach(ZipArchiveEntry archiveEntry in zipArchive.Entries.Where(e => !string.IsNullOrWhiteSpace(e.Name)))
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 UPath path = new UPath(archiveEntry.FullName).ToAbsolute();

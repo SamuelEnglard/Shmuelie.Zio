@@ -142,7 +142,7 @@ namespace Shmuelie.Zio.FileSystems
         });
 
         /// <inheritdoc />
-        protected override IEnumerable<UPath> Paths => archive.Entries.Select(e => new UPath(e.FullName));
+        protected override IEnumerable<UPath> Paths => archive.Entries.Where(e => !string.IsNullOrWhiteSpace(e.Name)).Select(e =>UPath.Root / e.FullName);
 
         private ZipArchiveEntry GetEntry(UPath path) => archive.GetEntry(path.ToRelative().FullName);
 
@@ -208,7 +208,10 @@ namespace Shmuelie.Zio.FileSystems
             {
                 func(GetEntry(path));
             }
-            throw FileSystemExceptionHelper.NewFileNotFoundException(path);
+            else
+            {
+                throw FileSystemExceptionHelper.NewFileNotFoundException(path);
+            }
         }
 
         private T IfFileExists<T>(UPath path, Func<ZipArchiveEntry, T> func)

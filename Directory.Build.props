@@ -9,6 +9,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Copyright>Copyright © Shmueli Englard $([System.DateTime]::UtcNow.Year)</Copyright>
     <Company>$(Authors)</Company>
+    <PackageProjectUrl>https://github.com/SamuelEnglard/Shmuelie.Zio</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageTags>zio filesystem</PackageTags>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)Directory.Build.*.props"/>
 </Project>

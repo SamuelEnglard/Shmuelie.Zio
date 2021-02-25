@@ -12,5 +12,10 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+  <PropertyGroup>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
+    <Title>$(Product)</Title>
+    <Summary>$(Description)</Summary>
+  </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)Directory.Build.*.targets"/>
 </Project>

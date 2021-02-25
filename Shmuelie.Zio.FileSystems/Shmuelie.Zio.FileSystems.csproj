@@ -2,5 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Additional implementations of IFileSystem for Zio.</Description>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
   </PropertyGroup>
 </Project>
